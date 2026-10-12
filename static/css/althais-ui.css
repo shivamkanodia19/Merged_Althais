@@ -1,0 +1,162 @@
+/* Althais UI theme: type, colour, depth and component polish only.
+ *
+ * Loaded after every other stylesheet. It restyles the existing class names and
+ * variables; it never changes markup, tab order, page structure or behaviour.
+ * The tenant brand colour (--brand, set by static/js/brand.js) stays the accent,
+ * so Settings > Appearance keeps working. Light-mode colour overrides are scoped
+ * away from dark mode, which keeps its own palette (dark.css) and only gets the
+ * new type, radii and component shapes.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Geist+Mono:wght@400;500;600&display=swap");
+
+:root {
+  --ui-sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ui-display: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+  --ui-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --ui-bg: oklch(97.6% .006 255);
+  --ui-surface: #fff;
+  --ui-surface-2: oklch(97% .005 255);
+  --ui-surface-3: oklch(94.5% .006 255);
+  --ui-fg: oklch(20% .02 258);
+  --ui-fg-muted: oklch(45% .016 258);
+  --ui-fg-faint: oklch(53% .014 258);
+  --ui-line: oklch(20% .02 258 / .09);
+  --ui-line-strong: oklch(20% .02 258 / .17);
+  --ui-accent: var(--brand, oklch(50% .19 258));
+  --ui-accent-soft: color-mix(in oklch, var(--ui-accent) 9%, transparent);
+
+  --ui-ring: 0 0 0 1px oklch(20% .02 258 / .08);
+  --ui-hl: inset 0 1px 0 #fff;
+  --ui-e1: var(--ui-ring), var(--ui-hl), 0 1px 1px oklch(25% .03 258 / .05), 0 1px 2px oklch(25% .03 258 / .04);
+  --ui-e2: var(--ui-ring), var(--ui-hl), 0 1px 1px oklch(25% .03 258 / .04), 0 2px 3px oklch(25% .03 258 / .04), 0 6px 12px -2px oklch(25% .03 258 / .05);
+  --ui-e3: var(--ui-ring), var(--ui-hl), 0 2px 2px oklch(25% .03 258 / .04), 0 6px 8px oklch(25% .03 258 / .05), 0 16px 28px -4px oklch(25% .03 258 / .10);
+  --ui-r-sm: 6px; --ui-r-md: 8px; --ui-r-lg: 12px;
+}
+
+/* ---------- type (all themes) ---------- */
+html body, body input, body button, body select, body textarea, body table {
+  font-family: var(--ui-sans);
+}
+body { -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.mono, code, kbd, samp { font-family: var(--ui-mono) !important; letter-spacing: 0; }
+h1, h2, h3, .panel-title, .s-section-title { font-family: var(--ui-display); letter-spacing: -.01em; }
+/* big figures read as display type */
+.kpi [class*="text-[20px]"], [class*="text-[24px]"], [class*="text-[28px]"] {
+  font-family: var(--ui-display); font-weight: 600; letter-spacing: -.025em;
+}
+/* eyebrow labels: small mono caps, one shared recipe */
+.table-head, .table-head .td, .table-head th,
+.side-section, .kpi [class*="uppercase"], [class*="tracking-wider"][class*="uppercase"], [data-collapse-toggle] [class*="uppercase"] {
+  font-family: var(--ui-mono); font-weight: 500; letter-spacing: .08em;
+}
+.table-head, .table-head .td, .table-head th { font-size: 10.5px !important; line-height: 14px; }
+.panel-title { font-family: var(--ui-display); font-size: 13px; font-weight: 600; letter-spacing: -.005em; text-transform: none; }
+
+[data-collapse-toggle] [class*="uppercase"] { font-size: 10.5px; font-weight: 500; }
+
+/* ---------- shape (all themes) ---------- */
+.rounded-sm { border-radius: var(--ui-r-md) !important; }
+.rounded, .rounded-md { border-radius: var(--ui-r-md) !important; }
+.pill { border-radius: 99px; padding: 1px 9px; font-weight: 600; letter-spacing: 0; }
+.count-pill { border-radius: 99px; font-family: var(--ui-mono); font-weight: 500; }
+button, [type="button"], [type="submit"] { transition: background-color .12s ease, box-shadow .12s ease, color .12s ease; }
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--ui-accent); outline-offset: 2px; border-radius: var(--ui-r-sm);
+}
+.thin-scroll::-webkit-scrollbar-thumb { border-radius: 99px; }
+
+/* ================= light mode colour + depth ================= */
+html:not([data-theme-resolved="dark"]) body { background: var(--ui-bg); color: var(--ui-fg); }
+html:not([data-theme-resolved="dark"]) .bg-shell { background-color: var(--ui-bg) !important; }
+html:not([data-theme-resolved="dark"]) .bg-panel { background-color: var(--ui-surface); }
+html:not([data-theme-resolved="dark"]) .border-line,
+html:not([data-theme-resolved="dark"]) .border-b.border-line,
+html:not([data-theme-resolved="dark"]) .border-t.border-line,
+html:not([data-theme-resolved="dark"]) .border-r.border-line,
+html:not([data-theme-resolved="dark"]) .border-l.border-line { border-color: var(--ui-line) !important; }
+html:not([data-theme-resolved="dark"]) .divide-lineSoft > :not([hidden]) ~ :not([hidden]),
+html:not([data-theme-resolved="dark"]) .border-lineSoft { border-color: var(--ui-line) !important; }
+html:not([data-theme-resolved="dark"]) tbody tr { border-bottom-color: var(--ui-line); }
+
+/* text: tinted neutrals instead of grey-on-grey */
+html:not([data-theme-resolved="dark"]) .text-ink-900, html:not([data-theme-resolved="dark"]) .text-ink-800 { color: var(--ui-fg) !important; }
+html:not([data-theme-resolved="dark"]) .text-ink-700, html:not([data-theme-resolved="dark"]) .text-ink-600 { color: var(--ui-fg-muted) !important; }
+html:not([data-theme-resolved="dark"]) .text-ink-500, html:not([data-theme-resolved="dark"]) .text-ink-400 { color: var(--ui-fg-faint) !important; }
+html:not([data-theme-resolved="dark"]) .td { color: var(--ui-fg); }
+
+/* tables */
+html:not([data-theme-resolved="dark"]) .table-head { background: var(--ui-surface-2); color: var(--ui-fg-faint); border-color: var(--ui-line); }
+html:not([data-theme-resolved="dark"]) .row-hover:hover,
+html:not([data-theme-resolved="dark"]) tbody tr:hover { background: color-mix(in oklch, var(--ui-surface-3) 55%, transparent); }
+html:not([data-theme-resolved="dark"]) tr.selected, html:not([data-theme-resolved="dark"]) tr[aria-selected="true"] {
+  background: var(--ui-accent-soft); box-shadow: inset 3px 0 0 var(--ui-accent);
+}
+
+/* KPI strip */
+html:not([data-theme-resolved="dark"]) .kpi { border-right-color: var(--ui-line); }
+html:not([data-theme-resolved="dark"]) a.kpi:hover, html:not([data-theme-resolved="dark"]) .kpi:hover { background: var(--ui-surface-2) !important; }
+
+/* tabs: top workspace tabs and the in-page tab row */
+html:not([data-theme-resolved="dark"]) .nav-tab { color: var(--ui-fg-muted); font-weight: 500; }
+html:not([data-theme-resolved="dark"]) .nav-tab:hover { color: var(--ui-fg); }
+html:not([data-theme-resolved="dark"]) .nav-tab.active { color: var(--ui-fg); font-weight: 600; }
+html:not([data-theme-resolved="dark"]) .nav-tab.active::after { height: 2px; border-radius: 2px; background: var(--ui-accent); }
+
+/* left record sidebar */
+html:not([data-theme-resolved="dark"]) .side-row { border-radius: 0; color: var(--ui-fg-muted); }
+html:not([data-theme-resolved="dark"]) .side-row:hover { background: var(--ui-surface-2); color: var(--ui-fg); }
+html:not([data-theme-resolved="dark"]) .side-row.active {
+  background: var(--ui-accent-soft); color: var(--ui-fg); font-weight: 600; border-left-color: var(--ui-accent);
+}
+html:not([data-theme-resolved="dark"]) .side-section { color: var(--ui-fg-faint); font-size: 10px; }
+
+/* buttons: raised, with a ring and a top highlight */
+html:not([data-theme-resolved="dark"]) button.bg-white, html:not([data-theme-resolved="dark"]) a.bg-white,
+html:not([data-theme-resolved="dark"]) .border.bg-white.text-ink-700 {
+  background: var(--ui-surface) !important; border-color: transparent !important; box-shadow: var(--ui-e1);
+}
+html:not([data-theme-resolved="dark"]) button.bg-white:hover, html:not([data-theme-resolved="dark"]) a.bg-white:hover { background: var(--ui-surface-2) !important; }
+html:not([data-theme-resolved="dark"]) :not(header).bg-med-600 {
+  background-image: linear-gradient(180deg, color-mix(in oklch, var(--ui-accent) 90%, #fff), var(--ui-accent));
+  box-shadow: var(--ui-ring), inset 0 1px 0 #ffffff33, 0 1px 2px color-mix(in oklch, var(--ui-accent) 40%, transparent), 0 4px 10px -2px color-mix(in oklch, var(--ui-accent) 35%, transparent);
+}
+html:not([data-theme-resolved="dark"]) :not(header).bg-med-600:hover { filter: brightness(1.05); }
+
+/* filter chips (All / Pending / Denied ...): raised active segment */
+html:not([data-theme-resolved="dark"]) [data-filter-chip] { border-radius: var(--ui-r-sm); color: var(--ui-fg-muted); }
+html:not([data-theme-resolved="dark"]) [data-filter-chip].bg-white { box-shadow: var(--ui-e1); border-color: transparent !important; color: var(--ui-fg); margin: 0 !important; }
+html:not([data-theme-resolved="dark"]) .bg-shell.rounded-sm.border { background: var(--ui-surface-3) !important; border-color: transparent !important; box-shadow: inset 0 1px 2px oklch(25% .03 258 / .07); padding: 2px; }
+
+/* inputs: soft inset, accent ring on focus */
+html:not([data-theme-resolved="dark"]) input:not([type="checkbox"]):not([type="radio"]), html:not([data-theme-resolved="dark"]) select, html:not([data-theme-resolved="dark"]) textarea {
+  background-color: var(--ui-surface); border-color: var(--ui-line-strong); border-radius: var(--ui-r-md);
+}
+html:not([data-theme-resolved="dark"]) input:not([type="checkbox"]):not([type="radio"]):focus, html:not([data-theme-resolved="dark"]) select:focus, html:not([data-theme-resolved="dark"]) textarea:focus {
+  outline: none; border-color: var(--ui-accent); box-shadow: 0 0 0 3px var(--ui-accent-soft);
+}
+
+/* popovers, menus, drawers, modals: real elevation */
+html:not([data-theme-resolved="dark"]) .shadow, html:not([data-theme-resolved="dark"]) .shadow-lg, html:not([data-theme-resolved="dark"]) .shadow-xl,
+html:not([data-theme-resolved="dark"]) [id$="-pop"], html:not([data-theme-resolved="dark"]) [role="menu"] {
+  box-shadow: var(--ui-e3) !important; border-radius: var(--ui-r-lg); border-color: transparent !important;
+}
+html:not([data-theme-resolved="dark"]) .fixed.inset-0 > div[class*="bg-panel"], html:not([data-theme-resolved="dark"]) .fixed.inset-0 > div[class*="bg-white"] {
+  border-radius: var(--ui-r-lg); box-shadow: var(--ui-e3);
+}
+
+/* risk panel items and cards inside rails get a soft separation */
+html:not([data-theme-resolved="dark"]) #ai-coding li, html:not([data-theme-resolved="dark"]) #risk-list > * { border-color: var(--ui-line); }
+html:not([data-theme-resolved="dark"]) .panel-chevron { border-radius: 6px; }
+html:not([data-theme-resolved="dark"]) .panel-header-toggle:hover .panel-chevron { background: var(--ui-accent-soft); }
+
+/* avatar tiles */
+html:not([data-theme-resolved="dark"]) [id$="initials"], html:not([data-theme-resolved="dark"]) .bg-med-100.text-med-700 {
+  border-radius: 12px; background-image: linear-gradient(160deg, color-mix(in oklch, var(--ui-accent) 14%, #fff), color-mix(in oklch, var(--ui-accent) 5%, #fff));
+  box-shadow: var(--ui-ring), inset 0 1px 0 #fff;
+}
+
+/* header/top bar */
+html:not([data-theme-resolved="dark"]) .primary-tab { letter-spacing: 0; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
