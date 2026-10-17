@@ -11,6 +11,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import RedirectResponse
 
 import platform_pages
+import seo_pages
 from auth import current_user
 from marketing_data import RESOURCE_ARTICLES, RESOURCE_CATEGORIES, SOLUTION_SEGMENTS
 
@@ -57,14 +58,10 @@ def _segment_page(seg_id, title, em):
     page = {
         "ctas": [("See what changes", "#rows"), ("Try the " + tools[0] + " demo", TOOL_HREF[tools[0]])] if tools else [("See what changes", "#rows")],
         "card": s["headline"],
-        "stats_head": ("By the numbers", "What " + s["case_study"]["org"].lower(), "saw with Althais."),
-        "stats": [_stat(r) for r in s.get("roi", [])],
-        "stats_note": "Results from one organization; yours will depend on your volume, payers and specialties.",
         "recommend": {"tier": tier + " tier", "text": why, "tools": [(t, TOOL_HREF[t]) for t in tools]},
         "nav": s["label"], "eyebrow": s["label"], "title": title, "em": em, "lede": s["headline"],
         "meta": f"Althais for {s['label']}: {s['headline']}",
-        "hero": [{"type": "rows", "eyebrow": "Before and after · " + s["case_study"]["org"].lower(),
-                  "rows": [(m, f"{b} → {a}", "g") for m, b, a in s.get("before_after", [])]}],
+        "hero": [{"type": "list", "eyebrow": "Pressures we hear about", "list": s["problems"][:3]}],
         "rows": [
             {"eyebrow": "The problem", "title": "What gets", "em": "in the way.", "text": "The pressures we hear about most from " + s["label"].lower() + ".",
              "cards": [{"type": "list", "eyebrow": "The problem", "list": s["problems"]}]},
@@ -73,12 +70,10 @@ def _segment_page(seg_id, title, em):
             {"eyebrow": "With Althais", "title": "What", "em": "changes.", "text": "The same work, with Althais doing the busywork and your team making the decisions.",
              "cards": [{"type": "list", "eyebrow": "With Althais", "good": True, "list": s["solution"]}]},
         ],
-        "quote": {"text": s["case_study"]["quote"], "role": s["case_study"]["role"], "org": s["case_study"]["org"],
-                  "initials": "".join(w[0] for w in s["case_study"]["role"].split()[:2]).upper()},
         "links_head": ("Also built for", "Every kind of", "care setting."),
         "links_grid": [{"eyebrow": o["label"], "title": o["label"], "text": o["headline"], "href": _seg_href(o["id"])}
                        for o in SOLUTION_SEGMENTS if o["id"] != seg_id][:3],
-        "faq": [("How long does implementation take?", "Most organizations are live within 30 to 60 days, with a provider pilot before full rollout."),
+        "faq": [("How do we start?", "With a pilot on your own documentation. Tell us about your clinic and we will plan it with you."),
                 ("Who approves the codes?", "Your team. A person approves every code before it reaches a claim."),
                 ("Can we start with a pilot?", "Yes. Every implementation includes a pilot on your own documentation.")],
     }
@@ -113,25 +108,24 @@ PAGES = {
     "/resources": {
         "nav": "Resources", "eyebrow": "Resources",
         "title": "Guides, updates", "em": "and insights.",
-        "lede": "Coding changes, revenue cycle guides and thinking on where AI helps in medical billing, and where it doesn't.",
-        "meta": "Althais resources: CMS and coding updates, revenue cycle guides, case studies and perspectives on AI in healthcare billing.",
-        "hero": [{"type": "chips", "eyebrow": "Topics", "chips": [label for key, label in RESOURCE_CATEGORIES if key != "all"]}],
-        "articles": RESOURCE_ARTICLES,
-        "categories": [(key, label) for key, label in RESOURCE_CATEGORIES if key != "all"],
-        "faq": [("Can I get the full articles?", "Yes. Contact us and we'll send any of them over."),
-                ("How often is this updated?", "We add coding and payer updates as CMS and the code sets change."),
+        "lede": "Guides for the people who work the claims: denied claims, appeal letters, bundling and denial codes.",
+        "meta": "Plain-language guides for clinic billing teams on denied claims, appeal letters, NCCI bundling and denial codes.",
+        "hero": [{"type": "chips", "eyebrow": "Topics", "chips": ["Denied claims", "Appeal letters", "NCCI bundling", "Denial codes"]}],
+        "links_head": ("Guides", "Plain-language help", "for billing teams."),
+        "links_grid": seo_pages._more(""),
+        "faq": [("How often are the guides updated?", "We review each guide when the rules it describes change, and the date is shown at the bottom of each one."),
                 ("Can I suggest a topic?", "Please do. Tell us what your team is wrestling with.")],
     },
     "/case-studies": {
         "nav": "Case Studies", "eyebrow": "Case Studies",
-        "title": "Practices that put", "em": "Althais to work.",
-        "lede": "Stories from the kinds of organizations Althais is built for, in their own words.",
-        "meta": "Case studies from practices, groups and health systems using Althais for coding and claims.",
-        "cases": [{"label": s["label"], "quote": s["case_study"]["quote"], "role": s["case_study"]["role"], "org": s["case_study"]["org"],
-                   "stats": s.get("before_after", [])[:3], "href": _seg_href(s["id"])} for s in SOLUTION_SEGMENTS if s.get("case_study")],
-        "faq": [("Can I talk to a customer?", "Ask us during your demo and we'll connect you with a team like yours."),
-                ("Are results the same everywhere?", "No. Every practice is different; we'll look at your own claims in a demo."),
-                ("Where do I start?", "Book a demo, then pilot Althais on your own documentation.")],
+        "title": "Case studies,", "em": "once they are real.",
+        "lede": "We will publish a clinic's story only after that clinic has approved it in writing, and only with numbers the clinic measured itself. None are published yet.",
+        "meta": "Althais will publish case studies only with a clinic's written approval and its own measured results. None are published yet.",
+        "noindex": True,
+        "ctas": [("Join the Pilot", "/pilot"), ("See how it works", "/how-it-works")],
+        "faq": [("Why are there no case studies yet?", "Althais is early. We would rather show nothing than show numbers that clinics have not measured and approved."),
+                ("How will the numbers be measured?", "By the clinic. Each pilot clinic records its own denials, appeals and staff time before and after, and we report what it recorded."),
+                ("Can I be one of the first?", "Yes. Join the pilot and tell us about your clinic.")],
     },
     "/walkthrough": {
         "nav": "Walkthrough", "eyebrow": "Walkthrough",

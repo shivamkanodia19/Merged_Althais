@@ -26,7 +26,7 @@ CROSS = {"Platform": "/how-it-works", "For Your Practice": "/platform/ai-scribe"
 def register(section: str, pages: dict, nav: list):
     names = {h: n for n, h in nav}
     for href, p in pages.items():
-        REGISTRY[href] = {"section": section, "name": names.get(href, p["nav"]), "text": p.get("card") or p["lede"], "demo": bool(p.get("demo")), "href": href}
+        REGISTRY[href] = {"section": section, "name": names.get(href, p["nav"]), "text": p.get("card") or p["lede"], "demo": bool(p.get("demo")), "href": href, "noindex": bool(p.get("noindex"))}
 
 
 def related(here: str, section: str, nav: list) -> list:

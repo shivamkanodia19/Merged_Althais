@@ -30,10 +30,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ page.nav }} | Althais</title>
+  {% set _title = page.title_tag or (page.nav ~ " | Althais") %}
+  {% set _url = "https://althais.com" ~ here %}
+  <title>{{ _title }}</title>
   <meta name="description" content="{{ page.meta }}" />
-  <meta property="og:title" content="{{ page.nav }} | Althais" />
+  <link rel="canonical" href="{{ _url }}" />
+  {% if page.noindex %}<meta name="robots" content="noindex, follow" />{% endif %}
+  <meta property="og:site_name" content="Althais" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ _url }}" />
+  <meta property="og:title" content="{{ _title }}" />
   <meta property="og:description" content="{{ page.meta }}" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="{{ _title }}" />
+  <meta name="twitter:description" content="{{ page.meta }}" />
+  {% if not page.noindex %}<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Althais", "item": "https://althais.com/"}, {"@type": "ListItem", "position": 2, "name": page.nav, "item": _url}]} | tojson }}</script>{% endif %}
   <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/althais-tab-32.png" />
   <link rel="icon" type="image/svg+xml" href="/static/favicon/althais-tab.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/althais-tab-180.png" />
@@ -214,6 +225,23 @@
 </section>
 
 {% if page.demo %}{% include "demos/_app.html" %}{% include "demos/" ~ page.demo ~ ".html" %}{% endif %}
+
+{% if page.article %}
+<section class="block" id="guide">
+  <div class="wrap pf-prose">
+    {% if page.answer %}<div class="card card-pad pf-answer rv"><span class="eyebrow">The short answer</span><p>{{ page.answer }}</p></div>{% endif %}
+    {% for sec in page.article %}
+    <div class="pf-prose-sec rv">
+      <h2>{{ sec.h }}</h2>
+      {% for para in sec.p or [] %}<p>{{ para }}</p>{% endfor %}
+      {% if sec.list %}<ul>{% for li in sec.list %}<li>{{ li }}</li>{% endfor %}</ul>{% endif %}
+      {% if sec.steps %}<ol>{% for li in sec.steps %}<li>{{ li }}</li>{% endfor %}</ol>{% endif %}
+    </div>
+    {% endfor %}
+    {% if page.updated %}<p class="foot-note">{{ page.updated }}</p>{% endif %}
+  </div>
+</section>
+{% endif %}
 
 {% if page.stats %}
 <section class="block">
@@ -456,6 +484,7 @@
   </div>
 </section>
 {% endif %}
+
 
 <section class="block">
   <div class="wrap">

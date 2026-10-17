@@ -81,6 +81,11 @@ import practice_pages
 app.include_router(practice_pages.router)
 import more_pages
 app.include_router(more_pages.router)
+import seo_pages
+import seo
+app.include_router(seo_pages.router)
+app.include_router(seo.router)
+app.middleware("http")(seo.robots_header)
 import demo_api
 app.include_router(demo_api.router)
 

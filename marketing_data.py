@@ -298,6 +298,12 @@ SOLUTION_SEGMENTS = [
 # ─────────────────────────────────────────────────────────────────────────
 #  Resources page content
 # ─────────────────────────────────────────────────────────────────────────
+# The customer stories, before/after figures and ROI numbers that used to sit on each segment had no source and no customer
+# consent, so they are removed from every page. Add them back here only with real, consented results.
+for _seg in SOLUTION_SEGMENTS:
+    for _key in ("case_study", "before_after", "roi"):
+        _seg.pop(_key, None)
+
 RESOURCE_CATEGORIES = [
     ("all", "All"),
     ("coding-updates", "Coding & CMS Updates"),
@@ -309,152 +315,5 @@ RESOURCE_CATEGORIES = [
     ("docs", "Documentation & API"),
 ]
 
-RESOURCE_ARTICLES = [
-    {
-        "id": "hospital-system-case-study",
-        "category": "case-studies",
-        "category_label": "Case Study",
-        "title": "How a 6-Hospital System Cut Denials 66% in Four Months",
-        "excerpt": "A regional health system was losing an estimated $4M a year to preventable denials across departments. Here's the rollout that turned that around.",
-        "meta": "8 min read · Case Study",
-        "featured": True,
-    },
-    {
-        "id": "cms-2026-fee-schedule",
-        "category": "coding-updates",
-        "category_label": "CMS Update",
-        "title": "CMS Finalizes 2026 Physician Fee Schedule: What Changes for E/M Coding",
-        "excerpt": "A breakdown of the E/M and conversion factor changes billing teams need to account for starting this year, and where the biggest reimbursement shifts land.",
-        "meta": "6 min read · CMS Updates",
-    },
-    {
-        "id": "icd10-fy2026-updates",
-        "category": "coding-updates",
-        "category_label": "ICD-10 News",
-        "title": "ICD-10-CM FY2026 Updates: The New Codes You Need to Know",
-        "excerpt": "This year's ICD-10-CM update adds new codes and revises several existing categories. Here's what actually affects day-to-day coding.",
-        "meta": "5 min read · ICD-10 News",
-    },
-    {
-        "id": "cpt-2026-remote-monitoring",
-        "category": "coding-updates",
-        "category_label": "CPT Changes",
-        "title": "CPT 2026 Category I Changes: New Codes for Remote Physiologic Monitoring",
-        "excerpt": "Remote monitoring billing gets several new Category I codes this cycle. A practical look at documentation requirements for each.",
-        "meta": "5 min read · CPT Changes",
-    },
-    {
-        "id": "modifier-errors-cardiology",
-        "category": "coding-updates",
-        "category_label": "Medical Coding",
-        "title": "The Five Most Common Modifier Errors We See in Cardiology Claims",
-        "excerpt": "Modifier 25, 59, and 26 account for a disproportionate share of cardiology denials. Here's how each one actually gets misapplied.",
-        "meta": "7 min read · Medical Coding",
-    },
-    {
-        "id": "ai-where-it-helps",
-        "category": "ai-healthcare",
-        "category_label": "AI in Healthcare",
-        "title": "Where AI Actually Helps in Medical Coding, and Where It Doesn't",
-        "excerpt": "AI coding tools are good at pattern recognition across huge volumes of documentation. They're not good at judgment calls with clinical ambiguity. Knowing the difference matters.",
-        "meta": "9 min read · AI in Healthcare",
-    },
-    {
-        "id": "confidence-scores-matter",
-        "category": "ai-healthcare",
-        "category_label": "AI in Healthcare",
-        "title": "Why Confidence Scores Matter More Than Accuracy Claims",
-        "excerpt": "A vendor claiming '95% accuracy' tells you nothing about which 5% is wrong. A confidence score tells a coder exactly where to look.",
-        "meta": "6 min read · AI in Healthcare",
-    },
-    {
-        "id": "human-in-the-loop",
-        "category": "ai-healthcare",
-        "category_label": "AI in Healthcare",
-        "title": "The Case for Keeping a Human in the Loop on Every Claim",
-        "excerpt": "Full automation sounds appealing until you're the one explaining a claim to a payer auditor. Why provider review isn't a bottleneck, it's the safeguard.",
-        "meta": "6 min read · AI in Healthcare",
-    },
-    {
-        "id": "denial-rate-guide",
-        "category": "rcm-guides",
-        "category_label": "Revenue Cycle Guide",
-        "title": "A Practical Guide to Reducing Denial Rate Below 5%",
-        "excerpt": "Most practices plateau around 8-10% denial rate. The path below 5% isn't one big fix, it's five specific, compounding changes.",
-        "meta": "10 min read · RCM Guide",
-    },
-    {
-        "id": "prior-auth-field-guide",
-        "category": "rcm-guides",
-        "category_label": "Revenue Cycle Guide",
-        "title": "Prior Authorization: A Field Guide for Billing Teams",
-        "excerpt": "Which procedures actually need prior auth, how to build the documentation payers want the first time, and how to track requests that go quiet.",
-        "meta": "8 min read · RCM Guide",
-    },
-    {
-        "id": "days-in-ar-benchmarks",
-        "category": "rcm-guides",
-        "category_label": "Industry Insight",
-        "title": "Days in A/R: Benchmarks by Practice Size",
-        "excerpt": "What's actually normal for a 3-provider practice versus a 40-provider group, and the point at which slow A/R starts signaling a deeper process problem.",
-        "meta": "6 min read · Industry Insight",
-    },
-    {
-        "id": "private-practice-case-study",
-        "category": "case-studies",
-        "category_label": "Case Study",
-        "title": "A 3-Provider Practice Eliminated Sunday Night Billing",
-        "excerpt": "The owner of a small cardiology practice used to do billing after hours every week. Here's what changed when review dropped to ten minutes a day.",
-        "meta": "5 min read · Case Study",
-    },
-    {
-        "id": "denial-cost-white-paper",
-        "category": "white-papers",
-        "category_label": "White Paper",
-        "title": "The True Cost of Claim Denials in Multi-Specialty Groups",
-        "excerpt": "A deep-dive analysis of direct and hidden denial costs (rework hours, delayed revenue, and write-off decisions) across a 40-provider group.",
-        "meta": "18 page report · White Paper",
-        "gated": True,
-    },
-    {
-        "id": "fqhc-compliance-white-paper",
-        "category": "white-papers",
-        "category_label": "White Paper",
-        "title": "FQHC Billing Compliance: A Complete Reference",
-        "excerpt": "PPS billing, wraparound payments, and Medicaid managed care rules in one reference built specifically for FQHC billing teams.",
-        "meta": "24 page report · White Paper",
-        "gated": True,
-    },
-    {
-        "id": "payer-intelligence-update",
-        "category": "product-updates",
-        "category_label": "Product Update",
-        "title": "Product Update: Payer Intelligence Now Covers 40+ Regional Plans",
-        "excerpt": "This release extends payer-specific edit modeling to 40 additional regional Medicaid managed care and commercial plans.",
-        "meta": "3 min read · Product Update",
-    },
-    {
-        "id": "denial-prevention-webinar",
-        "category": "product-updates",
-        "category_label": "Webinar",
-        "title": "Webinar Recording: Denial Prevention Office Hours",
-        "excerpt": "Our revenue cycle team answers live questions on denial patterns, appeal strategy, and where AI review fits into an existing billing workflow.",
-        "meta": "42 min · Webinar",
-    },
-    {
-        "id": "api-getting-started",
-        "category": "docs",
-        "category_label": "Documentation",
-        "title": "Getting Started with the Althais API",
-        "excerpt": "An overview of how Enterprise integrations connect to Althais: coding suggestions, claim status, and analytics as structured data.",
-        "meta": "Documentation",
-    },
-    {
-        "id": "api-auth-rate-limits",
-        "category": "docs",
-        "category_label": "Developer API",
-        "title": "Authentication & Rate Limits",
-        "excerpt": "How API credentials are issued for Enterprise accounts, and the request limits that apply per organization.",
-        "meta": "Developer API",
-    },
-]
+# The earlier article cards pointed at articles that were never written and quoted unsourced figures. Real guides live in seo_pages.py.
+RESOURCE_ARTICLES = []
