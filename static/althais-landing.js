@@ -153,7 +153,7 @@
   ];
   var scnShare = $("#scn-share"), scnNote = $("#scn-note"), chatBody = $("#chat-body");
   function renderScn(i) {
-    var s = SCN[i]; if (!s) return;
+    var s = SCN[i]; if (!s || !scnShare || !chatBody) return;
     scnShare.innerHTML = s.share.map(function (r) {
       return '<div class="share-row"><span class="d ' + (r[0] === "o" ? "o" : "") + '"></span><span class="k">' + esc(r[1]) + '</span><span class="val ' + (r[0] === "o" ? "dimv" : "") + '">' + esc(r[2]) + '</span></div>';
     }).join("");
@@ -318,8 +318,8 @@
       }
       if (ans.cta) {
         var l = document.createElement("a");
-        l.className = "ap-cta"; l.href = "/demo";
-        l.innerHTML = 'Book A Demo <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
+        l.className = "ap-cta"; l.href = "/pilot";
+        l.innerHTML = 'Join the Pilot <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
         apBody.appendChild(l);
       }
       scrollDown();
