@@ -1,4 +1,4 @@
-{# Shared look for the interactive product demos: a browser window holding a copy of the real Althais app (same cards,
+{# Shared look for the interactive product demos: a browser window holding a sample view that imitates the Althais app (similar cards,
    labels and buttons as templates/scribe.html, coding.html, revenue_claims.html). Everything is scoped under .ad. #}
 <style>
   .ad-sec { padding-top: 72px; scroll-margin-top: 80px; }
@@ -85,7 +85,6 @@
     <div class="sep">Revenue</div>
     <a class="{{ 'on' if here == 'claims' }}">Claims</a>
     <a>Denials &amp; Appeals</a>
-    <a>Payments</a>
     <div class="sep">Practice</div>
     <a class="{{ 'on' if here == 'team' }}">Team</a>
     <a>Settings</a>

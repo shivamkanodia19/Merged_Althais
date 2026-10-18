@@ -26,7 +26,7 @@
               <div class="card-b">
                 <div class="chip-row" id="td-roles"></div>
                 <table style="margin-top:10px"><tbody id="td-perm"></tbody></table>
-                <p class="note" style="margin-top:10px">Managers can change any role's access. Billers can't send claims until billing training is done.</p>
+                <p class="note" style="margin-top:10px">Managers can change any role's access. Billers don't get claim access until their billing training is done and a manager approves.</p>
               </div></div>
           </div>
         </div>
@@ -42,7 +42,7 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   var STAGES = [["Invited", "m", 10], ["Documents", "w", 40], ["Training", "w", 75], ["Active", "g", 100]];
   var P = [{ n: "Dr. Demo Patel", r: "Provider", s: 3 }, { n: "Bea Demo", r: "Biller", s: 2, note: "Billing training" }, { n: "Fay Demo", r: "Front Desk", s: 1, note: "License upload" }, { n: "Max Demo", r: "Manager", s: 3 }];
-  var AREAS = ["EMR & charts", "Scribe", "Coding", "Claims", "Payments", "Team & settings"];
+  var AREAS = ["EMR & charts", "Scribe", "Coding", "Claims", "Revenue", "Team & settings"];
   var PERM = { Provider: [1, 1, 1, 0, 0, 0], Biller: [0, 0, 1, 1, 1, 0], "Front Desk": [1, 0, 0, 0, 0, 0], Manager: [1, 1, 1, 1, 1, 1] };
   var role = "Biller";
   function rows() {

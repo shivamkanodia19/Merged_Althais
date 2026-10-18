@@ -48,11 +48,11 @@
   var $ = function (id) { return document.getElementById(id); };
   var A = [
     ["Why 99285?", ["why", "99285", "level", "complex"], "The note documents high-complexity medical decision making: chest pain with possible <mark>acute coronary syndrome</mark>, an EKG, serial troponins and a cardiology consult. For ED visits the level comes from MDM, not time, so that supports <mark>99285</mark>."],
-    ["Anything missing before I file?", ["missing", "file", "ready", "submit"], "Documentation is complete and the claim passed the bundling check with <mark>0 NCCI conflicts</mark>. One thing to confirm: 93010 assumes the provider interpreted the EKG. The note says so, so you're set."],
+    ["Anything missing before I file?", ["missing", "file", "ready", "submit"], "Documentation is complete and the claim passed the bundling check with <mark>0 conflicts</mark>. That check uses a short list of common code pairs, not the full government table. One thing to confirm: 93010 assumes the provider interpreted the EKG. The note says so, so you're set."],
     ["Can I bill the EKG too?", ["ekg", "93010", "bill"], "Yes, <mark>93010</mark> (interpretation and report) can be billed with 99285 when the provider documents the interpretation. The note includes “normal sinus rhythm”, which supports it."],
     ["Summarize this visit", ["summar", "recap", "overview"], "58-year-old with 2 hours of pressure-like chest pain and dyspnea. BP 148/92, EKG normal sinus rhythm. Plan: serial troponins, repeat EKG, aspirin, cardiology consult, telemetry. Coded as <mark>99285</mark> with R07.9 and R06.02."],
     ["What if troponin comes back high?", ["troponin", "high", "positive", "nstemi", "mi"], "Then the diagnosis likely changes to <mark>I21.4</mark> (NSTEMI) instead of R07.9, and you'd update the assessment before signing an addendum. I can't make the clinical call, but I'll flag the code change for you."],
-    ["How do I send this to billing?", ["send", "billing", "biller", "claim"], "Open <mark>Claims</mark>, find this visit and press Submit. If anything is missing, the claim is held with the reason instead of being rejected later."]
+    ["How do I send this to billing?", ["send", "billing", "biller", "claim"], "Open <mark>Claims</mark> and find this visit. A person has to approve the claim before it moves on. If anything is missing, the claim is held with the reason. Althais does not send claims to payers."]
   ];
   function add(cls, html) { var d = document.createElement("div"); d.className = "m " + cls; d.innerHTML = html; $("ld-chat").appendChild(d); $("ld-chat").scrollTop = 1e6; return d; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
@@ -61,7 +61,7 @@
     if (busy || !q.trim()) return; busy = true;
     add("u", esc(q));
     var l = q.toLowerCase(), hit = A.filter(function (a) { return a[0].toLowerCase() === l; })[0] || A.map(function (a) { return [a, a[1].filter(function (k) { return l.indexOf(k) > -1; }).length]; }).sort(function (x, y) { return y[1] - x[1]; }).filter(function (x) { return x[1] > 0; }).map(function (x) { return x[0]; })[0];
-    var ans = hit ? hit[2] : "In this demo I can answer the suggested questions about this visit. In Althais I answer anything about your own notes, codes and claims.";
+    var ans = hit ? hit[2] : "In this demo I can answer the suggested questions about this visit. In Althais I answer questions about your own notes, codes and claims.";
     var el = add("a", '<span class="muted">Reading the chart…</span>');
     setTimeout(function () {
       var plain = ans.replace(/<[^>]+>/g, ""), i = 0;

@@ -105,7 +105,7 @@
   function renderBoard(key) {
     var d = VT[key]; if (!d || !bars) return;
     bdN.textContent = d.n + "%";
-    bdLead.textContent = "of " + d.name + " claims in this example carried a fixable issue.";
+    bdLead.textContent = "of " + d.name + " claims in this simulated example carried a fixable issue. These are made-up numbers, not customer results.";
     bars.innerHTML = d.bars.map(function (b) {
       return '<div class="bar-row"><span>' + esc(b[0]) + '</span><span class="track"><span class="fill" data-w="' + (b[1] / 16 * 100).toFixed(1) + '"></span></span><span class="v">' + b[1] + '%</span></div>';
     }).join("");
@@ -130,7 +130,7 @@
              ["a", 'Chest pain and shortness of breath for two hours, with an ACS rule-out workup and <mark>47 minutes</mark> of provider time. I would code <mark>CPT 99285</mark> with <mark>R07.9</mark> as the primary diagnosis.'],
              ["u", "Any bundling issues?"],
              ["a", '<mark>0 bundling conflicts</mark> against the CMS PTP edit table. It is ready for your review, and nothing is filed until you approve it.']],
-      src: ["Today's note", "CPT 99285", "CMS PTP table"]
+      src: ["Today's note", "CPT 99285", "Bundling check"]
     },
     {
       share: [["g", "Complaint", "Cough, fatigue, 5 days"], ["g", "Assessment", "Acute bronchitis, improving"], ["g", "Visit type", "Established patient"], ["o", "Vitals", "BP 122/78, HR 76"], ["o", "Plan", "Supportive care"]],
@@ -143,9 +143,9 @@
     },
     {
       share: [["g", "Claim", "CHC-00412, Smith, John"], ["g", "Coded as", "99291 critical care"], ["g", "CMS rule", "30 minutes required"], ["o", "Time in note", "not stated"]],
-      note: "Althea flags this at low confidence and offers to open the claim, so it is fixed before filing rather than after a denial.",
+      note: "Sample scene with made-up data. Althea flags this at low confidence and offers to open the claim, so it can be fixed before filing.",
       msgs: [["u", "Which claims are at risk today?"],
-             ["a", '3 claims flagged. <mark>CHC-00412</mark> has low confidence on the <mark>99291</mark> critical care code. The <mark>30-minute</mark> CMS threshold needs to be documented explicitly. Want me to open it?'],
+             ["a", '3 claims flagged in this sample. <mark>CHC-00412</mark> has low confidence on the <mark>99291</mark> critical care code. The <mark>30-minute</mark> time rule needs to be documented in the note. Want me to open it?'],
              ["u", "Open it"],
              ["a", "Opening CHC-00412 now."]],
       src: ["Claims overview", "CPT 99291", "CMS time rule"]
@@ -276,15 +276,15 @@
     var isOpen = false, scrolled = false, inAlthea = false, busy = false, greeted = false, asked = {};
 
     var KB = {
-      what:  { chip: "What does Althais do?", q: "What does Althais do?", a: 'Althais takes a visit all the way to payment. You dictate or type it, and it writes the <mark>SOAP note</mark>, suggests the <mark>ICD-10 and CPT codes</mark>, and checks them against <mark>CMS edits</mark>. Once you approve the claim, Althais <mark>sends it out</mark> and <mark>tracks your revenue</mark> from submission to payment.', src: ["How Althais works", "Step four"] },
+      what:  { chip: "What does Althais do?", q: "What does Althais do?", a: 'You dictate or type a visit, and Althais writes the <mark>SOAP note</mark> and suggests the <mark>ICD-10 and CPT codes</mark>. It checks the codes against a short list of common bundling pairs. A person must approve every claim. Althais does <mark>not send claims</mark> to payers yet. It can also draft an appeal letter when you paste in a denial.', src: ["How Althais works"] },
       code:  { chip: "How does the coding work?", q: "How does the coding work?", a: 'Every ICD-10 and CPT suggestion comes with a <mark>confidence score</mark>, so you see at a glance what is solid and what deserves a second look. You can accept, reject, or add your own.', src: ["Step two"] },
-      check: { chip: "What is the CMS edit check?", q: "What is the CMS edit check?", a: 'Each claim is compared against the <mark>CMS procedure-to-procedure edit table</mark> before it is filed, so bundling errors are caught before a denial, not weeks after the fact. <mark>Nothing is submitted</mark> without a person approving it.', src: ["Step three", "Step four"] },
-      who:   { chip: "Who is it for?", q: "Who is Althais for?", a: 'Practices of all kinds: <mark>independent practices</mark>, urgent care, primary care, direct primary care, specialty groups, rural clinics, physician groups and emergency departments.', src: ["Built for practices like"] },
-      time:  { chip: "How much time does it save?", q: "How much time does it save?", a: 'The page shows an <mark>illustrative estimate</mark>: a batch of 100 claims is about 20 hours by hand, versus about 1 hr 30 min with Althais, most of it reading each claim before it is filed. It is an example, and your numbers will differ.', src: ["What it saves you"] },
-      start: { chip: "How do I get started?", q: "How do I get started?", a: 'The quickest way is to book a demo. We will walk through a visit on <mark>your own workflow</mark> and reply within one business day. Pricing is on the <a href="/pricing">pricing page</a>.', cta: true }
+      check: { chip: "What is the CMS edit check?", q: "What is the CMS edit check?", a: 'Althais checks each claim against a short list of about 62 common code pairs that payers often bundle. It is not the full CMS table, so it can miss things. A person must approve every claim before it goes anywhere.', src: ["Step three"] },
+      who:   { chip: "Who is it for?", q: "Who is Althais for?", a: 'Althais is made for small clinics and practices, including rural clinics, that want help with notes, coding and claim review. It is still early, so join the pilot to see if it fits you.', src: ["Built for practices like"] },
+      time:  { chip: "How much time does it save?", q: "How much time does it save?", a: 'We have not measured time savings with real customers. The page shows an <mark>example only</mark>, with made-up numbers, and your results will differ.', src: ["What it saves you"] },
+      start: { chip: "How do I get started?", q: "How do I get started?", a: 'The quickest way is to join the pilot and tell us about your clinic. Pricing is on the <a href="/pricing">pricing page</a>.', cta: true }
     };
     var ORDER = ["what", "code", "check", "who", "time", "start"];
-    var FALLBACK = { a: 'I can only help with questions about Althais. Try one of the questions below, or book a demo to talk it through with the team.', cta: true };
+    var FALLBACK = { a: 'I can only help with questions about Althais. Try one of the questions below, or join the pilot.', cta: true };
 
     /* keyword fallback for typed questions when the live model is unavailable */
     function match(t) {

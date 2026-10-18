@@ -7,9 +7,9 @@ SOLUTION_SEGMENTS = [
     {
         "id": "hospital-systems",
         "label": "Hospital Systems",
-        "headline": "Standardize coding and claims across every facility, department, and EHR.",
+        "headline": "Draft notes and suggest codes the same way for every provider, with a person approving each claim.",
         "problems": [
-            "Denials compound across dozens of departments and quietly cost millions a year.",
+            "Denials can add up across many departments.",
             "Coding backlogs delay billing while certified coders are stretched across specialties.",
             "Disparate EHRs across facilities produce inconsistent documentation quality.",
         ],
@@ -19,9 +19,9 @@ SOLUTION_SEGMENTS = [
             "Reconciliation across systems happens by hand, department by department.",
         ],
         "solution": [
-            "Specialty-tuned AI coding deploys system-wide, not department by department.",
-            "One claims pipeline standardizes assembly and submission across every facility.",
-            "Payer intelligence is shared system-wide. A denial pattern learned in one facility protects every other.",
+            "AI suggests ICD-10 and CPT codes from a visit note, with confidence scores, for your staff to review.",
+            "Every production claim is held until a person approves it.",
+            "A bundling check flags about 62 common code pairs that payers often reject together. It does not cover every payer rule.",
         ],
         "roi": [
             {"value": 4.2, "decimals": 1, "prefix": "$", "suffix": "M+", "label": "Denial revenue recovered / yr"},
@@ -43,7 +43,7 @@ SOLUTION_SEGMENTS = [
     {
         "id": "multi-specialty-groups",
         "label": "Large Multi-Specialty Groups",
-        "headline": "Give every specialty its own coding logic, without fifteen different workflows.",
+        "headline": "Use one workflow to write notes and suggest codes for many kinds of visits.",
         "problems": [
             "Each specialty codes differently, and cross-specialty claims get denied for medical necessity mismatches.",
             "A central billing office tries to apply one process to fifteen very different specialties.",
@@ -55,9 +55,9 @@ SOLUTION_SEGMENTS = [
             "Denials trigger frequent, slow resubmission cycles.",
         ],
         "solution": [
-            "Specialty-aware AI models are trained per department, not applied generically.",
-            "One unified claims builder replaces fifteen inconsistent manual processes.",
-            "A cross-specialty payer rule engine catches conflicts before submission.",
+            "Dictate or type any visit and get a draft SOAP note with suggested ICD-10 and CPT codes.",
+            "Every production claim is held for a person to review and approve.",
+            "A bundling check flags about 62 common code pairs that should not be billed together. It does not cover every rule.",
         ],
         "roi": [
             {"value": 1.8, "decimals": 1, "prefix": "$", "suffix": "M", "label": "Annual denial recovery"},
@@ -79,7 +79,7 @@ SOLUTION_SEGMENTS = [
     {
         "id": "private-practices",
         "label": "Private Practices",
-        "headline": "Get a full coding and billing team's output without hiring one.",
+        "headline": "Turn a dictated visit into a draft note and suggested codes, so less work lands on you after hours.",
         "problems": [
             "There's no dedicated coding staff. The provider or office manager handles it after hours.",
             "Denials often get written off entirely because there's no bandwidth to appeal.",
@@ -91,9 +91,9 @@ SOLUTION_SEGMENTS = [
             "Denials pile up in a folder that rarely gets revisited.",
         ],
         "solution": [
-            "AI does first-pass coding the moment the note is finished, with no after-hours catch-up.",
-            "Appeal letters draft themselves from the denial reason and clinical note.",
-            "A simple review queue fits into five minutes between patients, not an evening.",
+            "AI suggests codes as soon as the note is finished, so there is less to catch up on after hours.",
+            "When you paste in a denial, AI drafts an appeal letter for you to review and edit.",
+            "Claims wait for your approval, so you decide what goes out.",
         ],
         "roi": [
             {"value": 11, "suffix": " hrs/wk", "label": "Saved on billing admin"},
@@ -115,7 +115,7 @@ SOLUTION_SEGMENTS = [
     {
         "id": "urgent-care",
         "label": "Urgent Care",
-        "headline": "Code at the speed patients move through the door.",
+        "headline": "Get a draft note and suggested codes right after the visit.",
         "problems": [
             "High patient volume leaves no time for careful E/M level selection.",
             "Seasonal volume spikes overwhelm billing staff without warning.",
@@ -127,9 +127,9 @@ SOLUTION_SEGMENTS = [
             "High staff turnover means consistency resets every few months.",
         ],
         "solution": [
-            "E/M levels are suggested in real time with documentation-based justification.",
-            "The system scales instantly with volume. A flu-season spike doesn't slow it down.",
-            "Coding logic stays consistent regardless of who's staffing the front desk.",
+            "CPT and ICD-10 codes are suggested from the visit note, with confidence scores for staff to check.",
+            "Staff can dictate or paste in each visit as it happens instead of waiting for end-of-day batches.",
+            "Code suggestions come from the note, so they do not depend on who is working that day. A person still approves each claim.",
         ],
         "roi": [
             {"value": 19, "suffix": "%", "label": "Increase in correctly leveled E/M codes"},
@@ -151,7 +151,7 @@ SOLUTION_SEGMENTS = [
     {
         "id": "fqhc",
         "label": "FQHCs",
-        "headline": "Bill the way FQHCs actually get paid: PPS, wraparound, and all.",
+        "headline": "Draft notes and suggest codes for community health centers, with a person approving each claim.",
         "problems": [
             "Sliding-fee and wraparound billing rules are complex and payer-specific.",
             "A small billing team serves a very high patient volume with thin margins.",
@@ -163,9 +163,9 @@ SOLUTION_SEGMENTS = [
             "Every denial is disproportionately costly given already-thin reimbursement.",
         ],
         "solution": [
-            "FQHC PPS and wraparound billing logic is built in, not bolted on.",
-            "Every AI decision is logged, timestamped, and audit-ready by default.",
-            "Denial prevention is tuned specifically to Medicaid managed care plan behavior.",
+            "Althais does not yet have FQHC payment rules built in. It suggests codes from your visit notes for staff to review.",
+            "Every production claim is held for a person to approve.",
+            "Staff can paste in a denial and have AI draft an appeal letter to review.",
         ],
         "roi": [
             {"value": 540, "prefix": "$", "suffix": "K", "label": "Additional annual reimbursement captured"},
@@ -187,7 +187,7 @@ SOLUTION_SEGMENTS = [
     {
         "id": "specialty-clinics",
         "label": "Specialty Clinics",
-        "headline": "Get coding logic built for your specialty's edge cases, not general medicine.",
+        "headline": "Get suggested codes and a bundling check for the visits you document.",
         "problems": [
             "Highly specific coding requirements don't fit generic billing software.",
             "Modifier errors are common and directly cause denials.",
@@ -199,9 +199,9 @@ SOLUTION_SEGMENTS = [
             "Medical necessity documentation gaps are only caught after a denial arrives.",
         ],
         "solution": [
-            "Specialty-trained models understand procedure-specific modifier logic natively.",
-            "Medical necessity is cross-checked against current LCD policy automatically.",
-            "Prior auth documentation drafts itself from the clinical note.",
+            "AI suggests CPT codes from the note. Staff still choose modifiers and approve the claim.",
+            "A bundling check flags about 62 common code pairs. It is not the full CMS table.",
+            "Appeal letters can be drafted from denial text you paste in.",
         ],
         "roi": [
             {"value": 37, "suffix": "%", "label": "Reduction in modifier-related denials"},
@@ -223,7 +223,7 @@ SOLUTION_SEGMENTS = [
     {
         "id": "revenue-cycle-teams",
         "label": "Revenue Cycle Teams",
-        "headline": "Replace six disconnected tools with one system spanning coding to payment.",
+        "headline": "Keep notes, code suggestions, and claim approvals in one place.",
         "problems": [
             "Manual coding review is the bottleneck that throttles everything downstream.",
             "Denial root causes are usually discovered a month late, in a report.",
@@ -235,9 +235,9 @@ SOLUTION_SEGMENTS = [
             "Leadership makes decisions without real-time visibility into KPIs.",
         ],
         "solution": [
-            "One system spans coding, claims, submission, tracking, and payment.",
-            "Denial root causes surface live, not thirty days later.",
-            "Team-wide productivity and quality dashboards update in real time.",
+            "Notes, code suggestions, bundling checks, and claim approval live in one workspace. Claims are not sent to payers from Althais.",
+            "Staff can record denials by hand and keep them in one list.",
+            "A demo mode with sample data lets your team try Althais before using real records.",
         ],
         "roi": [
             {"value": 2.4, "decimals": 1, "suffix": "x", "label": "Coder throughput"},
@@ -259,7 +259,7 @@ SOLUTION_SEGMENTS = [
     {
         "id": "medical-billers",
         "label": "Medical Billers",
-        "headline": "Stop re-typing what the coder already decided.",
+        "headline": "Spend less time writing appeal letters from scratch.",
         "problems": [
             "Repetitive manual entry between coding systems and claim software wastes hours.",
             "Chasing denial documentation across payer portals eats the rest of the day.",
@@ -271,9 +271,9 @@ SOLUTION_SEGMENTS = [
             "Claim status is tracked by logging into six different payer portals.",
         ],
         "solution": [
-            "Approved codes flow directly into claims, with zero re-entry and zero transcription errors.",
-            "AI drafts a complete, payer-ready appeal letter in seconds.",
-            "One dashboard tracks status across every payer, not six separate logins.",
+            "Suggested codes sit next to the note, so you can review them without retyping the visit.",
+            "AI drafts an appeal letter from the denial text you paste in. You review and edit it before use.",
+            "Denials that staff mark by hand are kept in one list. Althais does not check payer portals for you.",
         ],
         "roi": [
             {"value": 6.5, "decimals": 1, "suffix": " hrs/wk", "label": "Saved per biller"},
